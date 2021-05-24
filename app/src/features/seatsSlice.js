@@ -9,10 +9,7 @@ const initialState = {
 export const fetchSeatsAsync = createAsyncThunk(
     'seatsStore/fetchSeats',
     async () => {
-        console.log("rr")
         const response = await fetchSeats();
-        // The value we return becomes the `fulfilled` action payload
-        await console.log("rr",response)
         return response;
     }
 );
@@ -21,8 +18,14 @@ export const seatsSlice = createSlice({
     name: 'seatsState',
     initialState,
     reducers: {
-        registerSeat: (state, action) => {
-            state.seats[action.payload[0]][action.payload[1]].reserved += true ;
+        registerSeats: (state, action) => {
+            //będe podawał w payloadzie tablice koordynatow dla wszystkich rejestrowanych miejsc
+            //w formie [[x],[y]],[[x],[y]], ...
+            action.payload.forEach(cord =>{
+                let index = findIndexOfSeatWithCords([cord[0],cord[1],]);
+                state.seats[index[0]][index[1]].reserved += true ;
+            });
+
         },
     },
     extraReducers: (builder) => {
