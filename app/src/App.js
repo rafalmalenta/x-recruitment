@@ -6,17 +6,21 @@ import {
     Link,
     useLocation
 } from "react-router-dom";
-
+import { useSelector, useDispatch } from 'react-redux';
 import './App.css';
 import {fetchSeats} from './features/fetchSeats';
 import cinemaHall from './models/CinemaHall'
-function App() {
+import Form from "./components/Form";
+import {showChoice} from "./features/userChoiceSlice";
+import {showSeats} from "./features/seatsSlice";
 
+function App () {
+    console.log("render");
+    console.log(useSelector(showSeats))
     fetchSeats().then(res=>{
-        let cc = new cinemaHall(res);
-        console.log(cc)
+        //let cc = new cinemaHall(res);
+        console.log("cc")
     });
-    //console.log(a)
   return (
       <Router>
           <div className="App">
@@ -24,7 +28,7 @@ function App() {
           </div>
           <Switch>
               <Route exact path="/">
-                  <div >s</div>
+                  <Form/>
               </Route>
               <Route path="/pickseat">
                   <div >ddsad</div>

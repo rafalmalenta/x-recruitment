@@ -4,10 +4,10 @@ export default class CinemaHall{
     longestRow;
     seats = [];
     constructor(seatsArray) {
-        this.seats.push(new Array());
+        this.seats.push([]);
         seatsArray.forEach(seat=> {
             if (seat.cords.x >= this.seats.length) {
-                this.seats.push(new Array());
+                this.seats.push([]);
             }
             if(seat.cords.y > this.longestRow)
                 this.longestRow = seat.cords.y;

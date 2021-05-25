@@ -46,8 +46,7 @@ export const seatsSlice = createSlice({
 export const { registerSeat } = seatsSlice.actions;
 
 export const showSeats = (state) => {
-    console.log("akk",state);
-    return state.seats;
+    return state.seats.seats;
 }
 
 export default seatsSlice.reducer;
