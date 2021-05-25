@@ -2,7 +2,7 @@ import seatsReducer, {
   registerSeat,
 } from './seatsSlice';
 
-describe('counter reducer', () => {
+describe('seats reducer', () => {
   const initialState = {
     status: 'idle',
     seats: [
@@ -40,7 +40,7 @@ describe('counter reducer', () => {
       },]
   };
   it('should handle initial state', () => {
-    expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
+    expect(seatsReducer(undefined, { type: 'unknown' })).toEqual({
       seats: [],
       status: 'idle',
     });
@@ -52,12 +52,12 @@ describe('counter reducer', () => {
   });
 
   it('should handle decrement', () => {
-    const actual = counterReducer(initialState, decrement());
+    const actual = seatsReducer(initialState, decrement());
     expect(actual.value).toEqual(2);
   });
 
   it('should handle incrementByAmount', () => {
-    const actual = counterReducer(initialState, incrementByAmount(2));
+    const actual = seatsReducer(initialState, incrementByAmount(2));
     expect(actual.value).toEqual(5);
   });
 });

@@ -21,10 +21,10 @@ export const seatsSlice = createSlice({
         registerSeats: (state, action) => {
             //będe podawał w payloadzie tablice koordynatow dla wszystkich rejestrowanych miejsc
             //w formie [[x],[y]],[[x],[y]], ...
-            action.payload.forEach(cord =>{
-                let index = findIndexOfSeatWithCords([cord[0],cord[1],]);
-                state.seats[index[0]][index[1]].reserved += true ;
-            });
+            // action.payload.forEach(cord =>{
+            //     let index = findIndexOfSeatWithCords([cord[0],cord[1],]);
+            //     state.seats[index[0]][index[1]].reserved += true ;
+            // });
 
         },
     },
