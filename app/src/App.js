@@ -2,6 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
+    Route,
     Link,
     useLocation
 } from "react-router-dom";
@@ -25,8 +26,8 @@ function App() {
               <Route exact path="/">
                   <div >s</div>
               </Route>
-              <Route path="/pickseat?">
-                  <div >d</div>
+              <Route path="/pickseat">
+                  <div >ddsad</div>
               </Route>
               <Route path="/summary">
                   <div >e</div>
