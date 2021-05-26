@@ -1,7 +1,7 @@
 export default class CinemaHall{
     //model sali kinowej który pozwoli mi dobrać się do konkretnego miejsca po indeksie zamiast przeszukiwac tablice
     //za każdym razem zeby dostac sie do cordsow.
-    longestRow;
+    longestRow = 0;
     seats = [];
     constructor(seatsArray) {
         this.seats.push([]);
@@ -13,5 +13,20 @@ export default class CinemaHall{
                 this.longestRow = seat.cords.y;
             this.seats[seat.cords.x][seat.cords.y] = seat;
         })
+    }
+    fillArrayWithNullSeats(){
+        let temporary=[];
+        for(let x=0;x<this.seats.length;x++){
+            temporary.push([])
+            for(let y=0;y<this.longestRow;y++){
+                if(this.seats[x][y]) {
+                    temporary[x].push(this.seats[x][y])
+                }
+                else {
+                    temporary[x].push("null");
+                }
+            }
+        }
+        this.seats = temporary;
     }
 }

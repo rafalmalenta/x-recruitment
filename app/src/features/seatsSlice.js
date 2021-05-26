@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice }  from '@reduxjs/toolkit';
 import { fetchSeats } from './fetchSeats';
-
+import CinemaHall from "../models/CinemaHall";
 const initialState = {
+    longestRow: 0,
     status: 'idle',
     seats: [],
 };
@@ -10,7 +11,9 @@ export const fetchSeatsAsync = createAsyncThunk(
     'seatsStore/fetchSeats',
     async () => {
         const response = await fetchSeats();
-        return response;
+        let Hall = new CinemaHall(response);
+        Hall.fillArrayWithNullSeats();
+        return [Hall.seats,Hall.longestRow];
     }
 );
 
@@ -34,8 +37,9 @@ export const seatsSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchSeatsAsync.fulfilled, (state, action) => {
-                state.status = 'idle';
-                state.seats = action.payload;
+                state.status = 'finished';
+                state.seats = action.payload[0];
+                state.longestRow = action.payload[1];
             })
             .addCase(fetchSeatsAsync.rejected,(state, action) =>{
                 state.status = 'failed';
@@ -46,7 +50,7 @@ export const seatsSlice = createSlice({
 export const { registerSeat } = seatsSlice.actions;
 
 export const showSeats = (state) => {
-    return state.seats.seats;
+    return state.seats;
 }
 
 export default seatsSlice.reducer;
