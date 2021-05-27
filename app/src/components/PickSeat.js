@@ -13,7 +13,7 @@ function PickSeat() {
     let longestRow = useSelector(showSeats).longestRow;
     let [hallState, setHallState] = useState([]);
     let helper = new PickHelper(seatCount,near,seatsArray);
-    helper.checkSeats();
+    helper.initializeForUserChoice();
     let [seats,setSeats] = useState([]);
     useEffect(()=>{
         setSeats(helper.seatsMatrix)

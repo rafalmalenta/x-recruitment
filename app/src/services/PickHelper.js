@@ -1,23 +1,22 @@
+import destructure2Darray from "./utilFunctions";
 export default class PickHelper{
-    seatCount;
-    near = 1;
+    seatCount = 1;
+    near ;
     seatsMatrix = [];
     seatsSelected = [];
     constructor(count,near,seatsMatrix) {
         this.seatCount = count;
         this.near = near;
-        seatsMatrix.forEach((row,i)=>{
-            this.seatsMatrix.push([]);
-            this.seatsMatrix[i] = [ ...row ]
-            })
+        this.seatsMatrix = destructure2Darray(seatsMatrix);
+        //chcę kopie macierzy zeby móc podmieniac wartosci
     }
 
-    checkSeats(){
-        let subsequentAvaibleSeat = [];
+    initializeForUserChoice(){
+        let subsequentAvaibleSeat  = [];
         this.seatsMatrix.forEach((row,rowIndex)=>{
+            subsequentAvaibleSeat = []
             row.forEach((seat,seatIndex)=>{
-
-                if(seat.reserved == false){
+                if(seat.reserved === false){
                     subsequentAvaibleSeat.push(seat);
                 }
                 else {
@@ -28,10 +27,9 @@ export default class PickHelper{
                 }
             })
         })
-        console.log("bcvb",subsequentAvaibleSeat);
     }
-    makeThoseSeatsRecommended(array){
-        array.forEach(seat=>{
+    makeThoseSeatsRecommended(seatsArray){
+        seatsArray.forEach(seat=>{
             let newSeat = {...seat, recommended: true };
             this.seatsMatrix[seat.cords.x][seat.cords.y] = newSeat;
         })
