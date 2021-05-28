@@ -23,13 +23,11 @@ export default class CinemaHall{
             for(let y=0;y<this.longestRow;y++){
                 if(this.seats[x][y]) {
                     temporary[x].push({...this.seats[x][y],isNull:false})
-                    //temporary[x].push(this.seats[x][y])
+                    continue
                 }
-                else {
-                    temporary[x].push({id:`s${x}${y}`,cords:{x,y},reserved:false,isNull:true})
-                }
-                }
+                temporary[x].push({id:`s${x}${y}`,cords:{x,y},reserved:false,isNull:true})
             }
+        }
 
         this.seats = temporary;
     }
