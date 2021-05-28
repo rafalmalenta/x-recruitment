@@ -16,7 +16,7 @@ function Form() {
         else {
             let near = document.querySelector("input[name='near']").checked ? true : false;
             dispatch(setChoice({count:inputValue,near}));
-            dispatch(fetchSeatsAsync());
+            dispatch(fetchSeatsAsync([inputValue,near]));
             history.push("/pickseat");
         }
 

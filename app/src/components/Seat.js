@@ -18,7 +18,7 @@ background-color: ${props => props.seat.meetUserCondition? "red":""};
 function Seat(props) {
     let border = props.seat.isNull;
     let seat = props.seat;
-    console.log(seat.meetUserCondition)
+    //console.log(seat.meetUserCondition)
     return (
 
         <SeatWrapper seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV}>

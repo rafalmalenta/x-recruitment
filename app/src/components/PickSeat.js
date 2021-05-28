@@ -14,10 +14,10 @@ function PickSeat() {
     const dispatch = useDispatch();
     console.log(seatsArray);
 
-    useEffect(()=>{
-        if (fetchStatus === "finished")
-            dispatch(prepareStateToMatchUserCondition({near:near,count:seatCount}));
-    },[fetchStatus])
+    // useEffect(()=>{
+    //     if (fetchStatus === "finished")
+    //         dispatch(prepareStateToMatchUserCondition({near:near,count:seatCount}));
+    // },[fetchStatus])
     let paddingPercent = Math.floor(100/(12 * longestRow)*100)/100;
     let SeatList = seatsArray.map(row=>row.map((seat)=>{
        return <Seat paddingV={paddingPercent} key={seat.id} seat={seat} />

@@ -14,6 +14,7 @@ function setGroupAvaibleIfMeetConditions(userCount,seatGroup,near){
     }
 }
 function makeThoseSeatsRecommended(seatsArray){
+
     seatsArray.forEach(seat=>{
         let newSeat = {...seat, meetUserCondition: true };
         this.seatsMatrix[seat.cords.x][seat.cords.y] = newSeat;
@@ -27,12 +28,11 @@ export default class PickHelper{
     constructor(count,near,seatsMatrix) {
         this.seatCount = count;
         this.near = near;
-        this.seatsMatrix = seatsMatrix;
-        //this.seatsMatrix = destructure2Darray(seatsMatrix)
+        //this.seatsMatrix = seatsMatrix;
+        this.seatsMatrix = destructure2Darray(seatsMatrix)
     }
 
     initializeForUserChoice(){
-
         this.seatsMatrix.forEach((row,rowIndex)=>{
             let subsequentAvaibleSeat = []
             row.forEach((seat,seatIndex)=>{

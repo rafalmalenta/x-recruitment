@@ -12,12 +12,13 @@ const initialState = {
 
 export const fetchSeatsAsync = createAsyncThunk(
     'seatsStore/fetchSeats',
-    async () => {
+    async (userChoice) => {
         const response = await fetchSeats();
         let Hall = new CinemaHall(response);
         Hall.fillArrayWithNullSeats();
-        //console.log(Hall);
-        return [Hall.seats,Hall.longestRow];
+        let helper = new PickHelper(userChoice[0],userChoice[1], Hall.seats);
+        helper.initializeForUserChoice();
+        return [helper.seatsMatrix,Hall.longestRow];
     }
 );
 
@@ -33,10 +34,6 @@ export const seatsSlice = createSlice({
             //         state.seats[index[0]][index[1]].reserved += true ;
             //     });
             // },
-        },
-        prepareStateToMatchUserCondition: (state, action) => {
-            let helper = new PickHelper(action.payload.count, action.payload.near, state.seats);
-            state.seats = helper.initializeForUserChoice();
         },
         handleSelection: (state, action) => {
             state.seats[action.payload.x][action.payload.y].selected = true;
