@@ -1,3 +1,5 @@
+import Seat from "./Seat";
+
 export default class CinemaHall{
     //model sali kinowej który pozwoli mi dobrać się do konkretnego miejsca po indeksie zamiast przeszukiwac tablice
     //za każdym razem zeby dostac sie do cordsow.
@@ -20,13 +22,15 @@ export default class CinemaHall{
             temporary.push([])
             for(let y=0;y<this.longestRow;y++){
                 if(this.seats[x][y]) {
-                    temporary[x].push(this.seats[x][y])
+                    temporary[x].push({...this.seats[x][y],isNull:false})
+                    //temporary[x].push(this.seats[x][y])
                 }
                 else {
-                    temporary[x].push("null");
+                    temporary[x].push({id:`s${x}${y}`,cords:{x,y},reserved:false,isNull:true})
+                }
                 }
             }
-        }
+
         this.seats = temporary;
     }
 }

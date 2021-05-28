@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice }  from '@reduxjs/toolkit';
 import { fetchSeats } from './fetchSeats';
 import CinemaHall from "../models/CinemaHall";
+import PickHelper from "../services/PickHelper";
+
 const initialState = {
     longestRow: 0,
     status: 'idle',
     seats: [],
+    preRegisteredSeats: [],
 };
 
 export const fetchSeatsAsync = createAsyncThunk(
@@ -13,6 +16,7 @@ export const fetchSeatsAsync = createAsyncThunk(
         const response = await fetchSeats();
         let Hall = new CinemaHall(response);
         Hall.fillArrayWithNullSeats();
+        //console.log(Hall);
         return [Hall.seats,Hall.longestRow];
     }
 );
@@ -22,14 +26,21 @@ export const seatsSlice = createSlice({
     initialState,
     reducers: {
         registerSeats: (state, action) => {
-            //będe podawał w payloadzie tablice koordynatow dla wszystkich rejestrowanych miejsc
-            //w formie [[x],[y]],[[x],[y]], ...
-            // action.payload.forEach(cord =>{
-            //     let index = findIndexOfSeatWithCords([cord[0],cord[1],]);
-            //     state.seats[index[0]][index[1]].reserved += true ;
-            // });
-
+            //     będe podawał w payloadzie tablice koordynatow dla wszystkich rejestrowanych miejsc
+            //     w formie [[x],[y]],[[x],[y]], ...
+            //     action.payload.forEach(cord =>{
+            //         let index = findIndexOfSeatWithCords([cord[0],cord[1],]);
+            //         state.seats[index[0]][index[1]].reserved += true ;
+            //     });
+            // },
         },
+        prepareStateToMatchUserCondition: (state, action) => {
+            let helper = new PickHelper(action.payload.count, action.payload.near, state.seats);
+            state.seats = helper.initializeForUserChoice();
+        },
+        handleSelection: (state, action) => {
+            state.seats[action.payload.x][action.payload.y].selected = true;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -47,7 +58,7 @@ export const seatsSlice = createSlice({
             });
     },
 });
-export const { registerSeat } = seatsSlice.actions;
+export const { registerSeat,prepareStateToMatchUserCondition } = seatsSlice.actions;
 
 export const showSeats = (state) => {
     return state.seats;
