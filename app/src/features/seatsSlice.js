@@ -7,7 +7,7 @@ const initialState = {
     longestRow: 0,
     status: 'idle',
     seats: [],
-    preRegisteredSeats: [],
+    selected: [],
 };
 
 export const fetchSeatsAsync = createAsyncThunk(
@@ -15,10 +15,10 @@ export const fetchSeatsAsync = createAsyncThunk(
     async (userChoice) => {
         const response = await fetchSeats();
         let Hall = new CinemaHall(response);
-        Hall.fillArrayWithNullSeats();
-        let helper = new PickHelper(userChoice[0],userChoice[1], Hall.seats);
-        helper.initializeForUserChoice();
-        return [helper.seatsMatrix,Hall.longestRow];
+        let helper = new PickHelper(userChoice[0],userChoice[1],Hall.seatsMatrix,Hall.longestRow);
+        helper.fillArrayWithNullSeats();
+        helper.initializeForUserChoice(userChoice[0],userChoice[1]);
+        return [Hall.seatsMatrix, Hall.longestRow];
     }
 );
 
@@ -35,9 +35,16 @@ export const seatsSlice = createSlice({
             //     });
             // },
         },
-        handleSelection: (state, action) => {
+        prepareStateToMatchUserCondition: (state, action) => {
+            let helper = new PickHelper(action.payload.count, action.payload.near, state.seats);
+            state.seats = helper.initializeForUserChoice();
+        },
+        select: (state, action) => {
             state.seats[action.payload.x][action.payload.y].selected = true;
-        }
+        },
+        deselect: (state, action) => {
+            state.seats[action.payload.x][action.payload.y].selected = false;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -45,6 +52,7 @@ export const seatsSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchSeatsAsync.fulfilled, (state, action) => {
+
                 state.status = 'finished';
                 state.seats = action.payload[0];
                 state.longestRow = action.payload[1];
@@ -55,7 +63,7 @@ export const seatsSlice = createSlice({
             });
     },
 });
-export const { registerSeat,prepareStateToMatchUserCondition } = seatsSlice.actions;
+export const { registerSeat,prepareStateToMatchUserCondition,select,deselect} = seatsSlice.actions;
 
 export const showSeats = (state) => {
     return state.seats;
