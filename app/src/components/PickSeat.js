@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { showChoice } from '../features/userChoiceSlice'
 import {showSeats, select, deselect, registerSeats} from "../features/seatsSlice";
-import PickHelper from "../services/PickHelper";
 import Seat from "./Seat";
 import styled from "styled-components";
+import HelperInitializer from "../services/HelperInitializer";
 
 const GigaButton = styled.div`
 box-sizing: border-box;
@@ -74,10 +74,9 @@ function PickSeat() {
     let longestRow = useSelector(showSeats).longestRow;
     const dispatch = useDispatch();
     let history = useHistory();
-    const helper = new PickHelper(seatCount,near,seatsArray,longestRow);
 
-    helper.fillArrayWithNullSeats();
-    helper.initializeForUserChoice(seatCount,near);
+    const initializer = new HelperInitializer(seatCount,near,seatsArray,longestRow);
+    const helper = initializer.initializeForUserChoice(seatCount,near);
     helper.setRecommendedSeats();
 
 
@@ -116,7 +115,6 @@ function PickSeat() {
                 <Tile padding={marginPercent} BGcolor={"#ff8a05"}></Tile>
                 <span>Twój wybór</span>
                 <GigaButton onClick={()=>goToSummary()} margin={marginPercent}>Rezerwuj</GigaButton>
-
             </MapKey>
         </ViewWrapper>
     )

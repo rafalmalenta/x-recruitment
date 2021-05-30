@@ -41,7 +41,7 @@ function Seat(props) {
 
     return (
         <SquaredWrapper seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV}>
-            {props.seat.rec && <INP onChange={(event)=>handleSelect(event)} id={seat.id} hidden checked={checked} name="seat" type="checkbox" />}
+            {props.seat.rec && <INP onChange={(event)=>handleSelect(event)} id={seat.id} hidden checked={checked} name={seat.id} type="checkbox" />}
             <SeatWrapper htmlFor={seat.id} seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV} >
             </SeatWrapper>
        </SquaredWrapper>
