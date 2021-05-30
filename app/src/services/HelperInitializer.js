@@ -40,7 +40,6 @@ export default class HelperInitializer{
             temporary.push([])
             for(let y=0;y<this.longestRow;y++){
                 if(typeof this.seatsMatrix[x][y]==="object") {
-                    console.log("arrr",this.seatsMatrix[x][y]);
                     temporary[x][y] = {...this.seatsMatrix[x][y],isNull:false}
                     continue
                 }

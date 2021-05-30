@@ -47,9 +47,7 @@ position: fixed;
 margin-right: ${props => 2 * props.margin}%;
 background-color: white;
 width: ${props => 100 - (4 * props.margin)}%;
-span{
-float:left;
-}
+
 `
 const Tile = styled.div`
 box-sizing: border-box;

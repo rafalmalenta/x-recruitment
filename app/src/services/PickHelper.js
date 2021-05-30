@@ -1,5 +1,3 @@
-import Seat from "../models/Seat";
-
 function seatExistAndMeetCondition(seat){
     if(typeof seat === "object")
         if(seat.meetUserCondition)
@@ -45,7 +43,6 @@ export default class PickHelper{
         this.seatsMatrix = seatsMatrix;
         this.initiallyAvailable = initiallyAvailable;
         this.seatsSelected = seatsSelected;
-        console.log("ss",this)
     }
     setRecommendedSeats(){
         if(!(this.seatsSelected.length>0)||!(this.near)){
