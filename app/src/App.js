@@ -7,12 +7,10 @@ import {
 import './App.css';
 import Form from "./components/Form";
 import PickSeat from "./components/PickSeat";
+import Summary from "./components/Summary";
 function App () {
   return (
       <Router>
-          <div className="App">
-              Start
-          </div>
           <Switch>
               <Route exact path="/">
                   <Form/>
@@ -21,7 +19,7 @@ function App () {
                   <PickSeat/>
               </Route>
               <Route path="/summary">
-                  <div >e</div>
+                  <Summary/>
               </Route>
           </Switch>
       </Router>

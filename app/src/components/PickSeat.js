@@ -1,8 +1,8 @@
 import React  from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import {Link, useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { setChoice, showChoice} from '../features/userChoiceSlice'
-import { showSeats,select, deselect } from "../features/seatsSlice";
+import {showSeats, select, deselect, registerSeats} from "../features/seatsSlice";
 import PickHelper from "../services/PickHelper";
 import Seat from "./Seat";
 import styled from "styled-components";
@@ -74,8 +74,9 @@ function PickSeat() {
     let seatsArray = useSelector(showSeats).seats;
     let longestRow = useSelector(showSeats).longestRow;
     const dispatch = useDispatch();
-
+    let history = useHistory();
     const helper = new PickHelper(seatCount,near,seatsArray,longestRow);
+
     helper.fillArrayWithNullSeats();
     helper.initializeForUserChoice(seatCount,near);
     helper.setRecommendedSeats();
@@ -91,14 +92,20 @@ function PickSeat() {
             dispatch(deselect({x:cordx,y:cordy}));
         }
     }
-    console.log(helper.seatsMatrix)
+
     let marginPercent = Math.floor(100/(12 * longestRow)*100)/100;
-    console.log(marginPercent)
     let SeatList = helper.seatsMatrix.map(row=>row.map((seat)=>{
         //console.log(seat)
        return <Seat handleSelect={handleSelect} paddingV={marginPercent} key={seat.id} seat={seat} />
     }))
-
+    function goToSummary(){
+        if(helper.picksLeft == 0){
+            dispatch(registerSeats())
+            history.push("/summary");
+        }
+        else alert("nie wybrałeś wszystkich miejsc")
+    }
+    console.log(seatsArray)
     return (
         <ViewWrapper margin={marginPercent} >
             <CinemaWrapper margin={marginPercent} width="100%">
@@ -111,7 +118,7 @@ function PickSeat() {
                 <span>Miejsca zarezerwowane</span>
                 <Tile padding={marginPercent} BGcolor={"#ff8a05"}></Tile>
                 <span>Twój wybór</span>
-                <GigaButton margin={marginPercent}>Rezerwuj</GigaButton>
+                <GigaButton onClick={()=>goToSummary()} margin={marginPercent}>Rezerwuj</GigaButton>
 
             </MapKey>
         </ViewWrapper>

@@ -7,7 +7,7 @@ const initialState = {
     longestRow: 0,
     status: 'idle',
     seats: [],
-    selected: [],
+    registered: [],
 };
 
 export const fetchSeatsAsync = createAsyncThunk(
@@ -24,17 +24,16 @@ export const seatsSlice = createSlice({
     initialState,
     reducers: {
         registerSeats: (state, action) => {
-            //     będe podawał w payloadzie tablice koordynatow dla wszystkich rejestrowanych miejsc
-            //     w formie [[x],[y]],[[x],[y]], ...
-            //     action.payload.forEach(cord =>{
-            //         let index = findIndexOfSeatWithCords([cord[0],cord[1],]);
-            //         state.seats[index[0]][index[1]].reserved += true ;
-            //     });
-            // },
-        },
-        prepareStateToMatchUserCondition: (state, action) => {
-            let helper = new PickHelper(action.payload.count, action.payload.near, state.seats);
-            state.seats = helper.initializeForUserChoice();
+           let selected = [];
+           state.seats.forEach(row=>{
+               row.forEach(seat=>{
+                   if (seat.selected === true){
+                       selected.push({...seat});
+                       seat.reserved = true;
+                   }
+               })
+           })
+        state.registered = selected;
         },
         select: (state, action) => {
             state.seats[action.payload.x][action.payload.y].selected = true;
@@ -60,10 +59,13 @@ export const seatsSlice = createSlice({
             });
     },
 });
-export const { registerSeat,prepareStateToMatchUserCondition,select,deselect} = seatsSlice.actions;
+export const { registerSeats,select,deselect} = seatsSlice.actions;
 
 export const showSeats = (state) => {
     return state.seats;
 }
+// export const showRegistered = (state) => {
+//     return state.registered;
+// }
 
 export default seatsSlice.reducer;
