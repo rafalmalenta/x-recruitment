@@ -1,3 +1,9 @@
+##Instrukcja instalacji.
+Uruchomić.
+1. cd app && npm install & npm install.
+2. npm run api & cd app && npm start
+3. strona bedzie dostępna pod adresem http://localhost:3006
+
 ## Aplikacja do zarządzania rezerwacją miejsc.
 
 ### Cel zadania
