@@ -15,7 +15,7 @@ export default class CinemaHall{
                 this.longestRow = seat.cords.y;
             this.seatsMatrix[seat.cords.x][seat.cords.y] = seat;
         })
-        })
+        console.log(this)
     }
 
 }

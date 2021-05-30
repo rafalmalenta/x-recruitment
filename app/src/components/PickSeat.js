@@ -1,25 +1,71 @@
 import React  from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { setChoice, showChoice} from '../features/userChoiceSlice'
 import { showSeats,select, deselect } from "../features/seatsSlice";
 import PickHelper from "../services/PickHelper";
 import Seat from "./Seat";
 import styled from "styled-components";
+
+const GigaButton = styled.div`
+box-sizing: border-box;
+border: 1px solid black;
+position: relative;
+right: ${props => 100-(14 * 12 * Math.round(10000 * props.margin)/10000)}%;
+float: right;
+display: flex;
+align-items: center;
+justify-content: center;
+height: ${props => 10 * props.margin}vh;
+margin: ${props => 1 * props.margin}%;
+width: ${props =>  (46 * props.margin)}%;
+:after {
+  content: "";
+  display: block;
+  padding-bottom: 100/46%;
+}
+`
+const ViewWrapper = styled.div`
+position: relative;
+float: left;
+margin-left: ${props => 2 * props.margin}%;
+margin-right: ${props => 2 * props.margin}%;
+width: ${props => 100 - (4 * props.margin)}%;
+`
+const CinemaWrapper =styled.div`
+float: left;
+width: 100%;
+margin-bottom: 120px;
+`
 const MapKey = styled.div`
-display: block;
+display: flex;
+align-items: center;
+justify-content: space-between;
 z-index: 10;
 bottom: 0;
 position: fixed;
-width: 100%;
+margin-right: ${props => 2 * props.margin}%;
 background-color: white;
+width: ${props => 100 - (4 * props.margin)}%;
+span{
+float:left;
+}
 `
 const Tile = styled.div`
+box-sizing: border-box;
+float: left;
 display: inline-block;
-positiom: relative;
-width: ${props => Math.round(10000 * props.padding)/1000}vw ;
-height: ${props => Math.round(10000 * props.padding)/1000}vw ;
-background-color: ${props => props.coloree};
+position: relative;
+margin: ${props => Math.round(10000 * props.padding)/10000}%;
+width: ${props => Math.round(10000 * props.padding)/1000}% ;
+background-color: ${props => props.BGcolor};
+border: 1px solid black;
+:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
 `
 function PickSeat() {
     let seatCount = useSelector(showChoice).count;
@@ -45,19 +91,30 @@ function PickSeat() {
             dispatch(deselect({x:cordx,y:cordy}));
         }
     }
-    let paddingPercent = Math.floor(100/(12 * longestRow)*100)/100;
+    console.log(helper.seatsMatrix)
+    let marginPercent = Math.floor(100/(12 * longestRow)*100)/100;
+    console.log(marginPercent)
     let SeatList = helper.seatsMatrix.map(row=>row.map((seat)=>{
-       return <Seat handleSelect={handleSelect} paddingV={paddingPercent} key={seat.id} seat={seat} />
+        //console.log(seat)
+       return <Seat handleSelect={handleSelect} paddingV={marginPercent} key={seat.id} seat={seat} />
     }))
 
     return (
-        <div width="100%">
-            {SeatList}
-            <MapKey>
-                <Tile padding={paddingPercent} coloree={"orange"}></Tile>
-                <span>miejsca dostepne</span>
+        <ViewWrapper margin={marginPercent} >
+            <CinemaWrapper margin={marginPercent} width="100%">
+                {SeatList}
+            </CinemaWrapper>
+            <MapKey margin={marginPercent}>
+                <Tile padding={marginPercent} BGcolor={"white"}></Tile>
+                <span>Miejsca dostepne</span>
+                <Tile padding={marginPercent} BGcolor={"#474747"}></Tile>
+                <span>Miejsca zarezerwowane</span>
+                <Tile padding={marginPercent} BGcolor={"#ff8a05"}></Tile>
+                <span>Twój wybór</span>
+                <GigaButton margin={marginPercent}>Rezerwuj</GigaButton>
+
             </MapKey>
-        </div>
+        </ViewWrapper>
     )
 }
 export default PickSeat

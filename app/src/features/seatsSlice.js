@@ -15,9 +15,6 @@ export const fetchSeatsAsync = createAsyncThunk(
     async (userChoice) => {
         const response = await fetchSeats();
         let Hall = new CinemaHall(response);
-        let helper = new PickHelper(userChoice[0],userChoice[1],Hall.seatsMatrix,Hall.longestRow);
-        helper.fillArrayWithNullSeats();
-        helper.initializeForUserChoice(userChoice[0],userChoice[1]);
         return [Hall.seatsMatrix, Hall.longestRow];
     }
 );
