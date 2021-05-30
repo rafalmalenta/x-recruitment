@@ -1,9 +1,38 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { setChoice, showChoice} from '../features/userChoiceSlice'
+import { setChoice } from '../features/userChoiceSlice'
 import { fetchSeatsAsync} from "../features/seatsSlice";
+import styled from "styled-components";
 
+const FORM= styled.form`
+position: relative;
+max-width: 280px;
+margin: 0 auto;
+padding-top: 26%;
+display: block;
+label{
+margin-top: 20px;
+margin-bottom: 20px;
+display: block;
+width: 100%;
+}
+button{
+background-color: white;
+height: 3em;
+width:100%;
+border-radius: 0px 0px 0px 0px;
+border: 1px solid black;
+}
+`
+const TEXT = styled.input`
+border-radius: 0px 0px 0px 0px;
+border: 1px solid black;
+max-width: 50%;
+right: 0px;
+position: absolute;
+
+`
 function Form() {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -23,16 +52,16 @@ function Form() {
     }
 
     return (
-        <form action="pickseat" name="pickseat">
+        <FORM action="pickseat" name="pickseat">
             <label>
-            Liczba miejsc <input name="count" type="text" />
+            Liczba miejsc <TEXT name="count" type="text" />
             </label>
             <label>
                 <input name="near" type="checkbox"/> Czy miejsca mają być obok siebie?
             </label>
             <button onClick={()=>goToSeats()} type="button">Wybierz miejsca</button>
 
-        </form>
+        </FORM>
     )
 }
 export default Form

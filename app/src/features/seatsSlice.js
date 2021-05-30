@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice }  from '@reduxjs/toolkit';
 import { fetchSeats } from './fetchSeats';
 import CinemaHall from "../models/CinemaHall";
-import PickHelper from "../services/PickHelper";
 
 const initialState = {
     longestRow: 0,
@@ -30,6 +29,7 @@ export const seatsSlice = createSlice({
                    if (seat.selected === true){
                        selected.push({...seat});
                        seat.reserved = true;
+                       seat.selected = false;
                    }
                })
            })

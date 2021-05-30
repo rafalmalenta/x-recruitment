@@ -1,4 +1,3 @@
-import destructure2Darray from "../services/utilFunctions";
 import Seat from "../models/Seat";
 function isSeatGroupBigEnough(userCount,seatGroup,near,){
     if(near === true) {
@@ -74,7 +73,7 @@ export default class PickHelper{
         for(let x=0;x<this.seatsMatrix.length;x++){
             temporary.push([])
             for(let y=0;y<this.longestRow;y++){
-                if(typeof this.seatsMatrix[x][y]=="object") {
+                if(typeof this.seatsMatrix[x][y]==="object") {
                     temporary[x][y] = {...this.seatsMatrix[x][y],isNull:false}
                     continue
                 }
@@ -109,7 +108,7 @@ export default class PickHelper{
                     setGroupAvailableIfMeetConditions.call(this,seatCount,subsequentAvailableSeat,near);
                     subsequentAvailableSeat = [];
                 }
-                if(seat.selected == true)
+                if(seat.selected === true)
                     this.seatsSelected.push(seat)
             })
         })

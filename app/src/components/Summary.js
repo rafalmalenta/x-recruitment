@@ -16,8 +16,8 @@ font-size: 22px;
 
 function Summary(props) {
     let registered = useSelector(showSeats).registered;
-    const LIST= registered.map(seat=>{
-        return <li>rząd {seat.cords.x}, miejsce {seat.cords.y} ({seat.id})</li>
+    const LIST= registered.map((seat,index)=>{
+        return <li key={index}>rząd {seat.cords.x}, miejsce {seat.cords.y} ({seat.id})</li>
     })
     return(
         <Wrapper>

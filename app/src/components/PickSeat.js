@@ -1,7 +1,7 @@
 import React  from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { setChoice, showChoice} from '../features/userChoiceSlice'
+import { showChoice } from '../features/userChoiceSlice'
 import {showSeats, select, deselect, registerSeats} from "../features/seatsSlice";
 import PickHelper from "../services/PickHelper";
 import Seat from "./Seat";
@@ -70,7 +70,6 @@ border: 1px solid black;
 function PickSeat() {
     let seatCount = useSelector(showChoice).count;
     let near = useSelector(showChoice).near;
-    let fetchStatus = useSelector(showSeats).status;
     let seatsArray = useSelector(showSeats).seats;
     let longestRow = useSelector(showSeats).longestRow;
     const dispatch = useDispatch();
@@ -83,7 +82,7 @@ function PickSeat() {
 
 
     function handleSelect({cordx,cordy},value){
-        if(value == true ){
+        if(value === true ){
             if(helper.picksLeft>0)
                 dispatch(select({x:cordx,y:cordy}));
             else alert("zarezerwowałeś wszystkie miejsca");
@@ -95,17 +94,15 @@ function PickSeat() {
 
     let marginPercent = Math.floor(100/(12 * longestRow)*100)/100;
     let SeatList = helper.seatsMatrix.map(row=>row.map((seat)=>{
-        //console.log(seat)
        return <Seat handleSelect={handleSelect} paddingV={marginPercent} key={seat.id} seat={seat} />
     }))
     function goToSummary(){
-        if(helper.picksLeft == 0){
+        if(helper.picksLeft === 0){
             dispatch(registerSeats())
             history.push("/summary");
         }
         else alert("nie wybrałeś wszystkich miejsc")
     }
-    console.log(seatsArray)
     return (
         <ViewWrapper margin={marginPercent} >
             <CinemaWrapper margin={marginPercent} width="100%">
