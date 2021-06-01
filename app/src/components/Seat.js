@@ -14,7 +14,7 @@ border: ${props => !props.seat.isNull? "1px solid black": ""};
   padding-bottom: 100%;
 }
 `
-const SeatWrapper = styled.label`
+const SeatLabel = styled.label`
 display: block;
 position: absolute;
 width: 100%;
@@ -42,8 +42,8 @@ function Seat(props) {
     return (
         <SquaredWrapper seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV}>
             {props.seat.rec && <INP onChange={(event)=>handleSelect(event)} id={seat.id} hidden checked={checked} name={seat.id} type="checkbox" />}
-            <SeatWrapper htmlFor={seat.id} seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV} >
-            </SeatWrapper>
+            <SeatLabel htmlFor={seat.id} seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV} >
+            </SeatLabel>
        </SquaredWrapper>
 
     )
