@@ -5,8 +5,8 @@ const SquaredWrapper =styled.div`
 float: left;
 box-sizing: border-box;
 position: relative;
-width: ${props => Math.round(10000 * props.paddingV)/1000}% ;
-margin: ${props => props.paddingV}%;
+width: ${props => Math.round(10000 * props.marginValue)/1000}% ;
+margin: ${props => props.marginValue}%;
 border: ${props => !props.seat.isNull? "1px solid black": ""};
 :after {
   content: "";
@@ -40,9 +40,9 @@ function Seat(props) {
     }
 
     return (
-        <SquaredWrapper seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV}>
+        <SquaredWrapper seat={seat} reserved={props.seat.reserved} border={border} marginValue={props.marginValue}>
             {props.seat.rec && <INP onChange={(event)=>handleSelect(event)} id={seat.id} hidden checked={checked} name={seat.id} type="checkbox" />}
-            <SeatLabel htmlFor={seat.id} seat={seat} reserved={props.seat.reserved} border={border} paddingV={props.paddingV} >
+            <SeatLabel htmlFor={seat.id} seat={seat} reserved={props.seat.reserved} border={border} marginValue={props.marginValue} >
             </SeatLabel>
        </SquaredWrapper>
 

@@ -86,7 +86,7 @@ function PickSeat() {
 
     let marginPercent = Math.floor(100/(12 * longestRow)*100)/100;
     let SeatList = helper.seatsMatrix.map(row=>row.map((seat)=>{
-       return <Seat handleSelect={handleSelect} paddingV={marginPercent} key={seat.id} seat={seat} />
+       return <Seat handleSelect={handleSelect} marginValue={marginPercent} key={seat.id} seat={seat} />
     }))
     function goToSummary(){
         if(helper.picksLeft === 0){
