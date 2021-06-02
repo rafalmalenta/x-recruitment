@@ -23,17 +23,14 @@ export const seatsSlice = createSlice({
     initialState,
     reducers: {
         registerSeats: (state, action) => {
-           let selected = [];
+           state.registered = [];
            state.seats.forEach(row=>{
                row.forEach(seat=>{
                    if (seat.selected === true){
-                       selected.push({...seat});
-                       seat.reserved = true;
-                       seat.selected = false;
+                       state.registered.push({...seat, reserved: true, selected:false});
                    }
                })
            })
-        state.registered = selected;
         },
         select: (state, action) => {
             state.seats[action.payload.x][action.payload.y].selected = true;
