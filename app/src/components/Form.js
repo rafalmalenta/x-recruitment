@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { setChoice } from '../features/userChoiceSlice'
 import { fetchSeatsAsync} from "../features/seatsSlice";
 import styled from "styled-components";
-
+import checkImage from '../../src/check.png'
 const FORM= styled.form`
 position: relative;
 max-width: 280px;
@@ -31,6 +31,25 @@ border: 1px solid black;
 max-width: 50%;
 right: 0px;
 position: absolute;
+`
+const CheckBox = styled.input`
+appearance: none;
+:after{    
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+:checked{
+    :after {
+        overflow: visible;
+        border: 0px;       
+        background-image :url(${checkImage});
+        background-size: 16px 16px;
+    }
+}
 
 `
 function Form() {
@@ -57,7 +76,7 @@ function Form() {
             Liczba miejsc <TEXT name="count" type="text" />
             </label>
             <label>
-                <input name="near" type="checkbox"/> Czy miejsca mają być obok siebie?
+                <CheckBox name="near" type="checkbox"/> Czy miejsca mają być obok siebie?
             </label>
             <button onClick={()=>goToSeats()} type="button">Wybierz miejsca</button>
 

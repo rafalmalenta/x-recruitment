@@ -16,9 +16,14 @@ float: right;
 display: flex;
 align-items: center;
 justify-content: center;
-height: ${props => 10 * props.margin}vh;
+//height: ${props => 12 * props.margin}vh;
 margin: ${props => 1 * props.margin}%;
 width: ${props =>  (46 * props.margin)}%;
+:after {
+  content: "";
+  display: block;
+  padding-bottom: 21.7%;
+}
 `
 const ViewWrapper = styled.div`
 position: relative;

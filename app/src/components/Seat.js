@@ -42,7 +42,7 @@ function Seat(props) {
     return (
         <SquaredWrapper seat={seat} reserved={props.seat.reserved} border={border} marginValue={props.marginValue}>
             {props.seat.rec && <INP onChange={(event)=>handleSelect(event)} id={seat.id} hidden checked={checked} name={seat.id} type="checkbox" />}
-            <SeatLabel htmlFor={seat.id} seat={seat} reserved={props.seat.reserved} border={border} marginValue={props.marginValue} >
+            <SeatLabel htmlFor={seat.id} seat={seat} border={border} marginValue={props.marginValue} >
             </SeatLabel>
        </SquaredWrapper>
 
